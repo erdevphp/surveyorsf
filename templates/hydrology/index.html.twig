@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hydrologie{% endblock %}
+
+{% block body %}
+<div class="container" id="main">
+    <h1 class="text-center"><i class="fas fa-water"></i> Etude pluviométrique</h1> 
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+        <div class="d-flex align-items-center col-md-6 mb-2 ml-2 mb-md-0 text-info text-decoration-none font-weight-bold">
+            <i class="fa-solid fa-info-circle"></i> &nbsp; Renseigner vos données pluviométiques
+        </div>
+        <div class="nav col-md-auto mb-2 justify-content-center mb-md-0">
+            <a href="#" id="addInputs" class="btn btn-success" type="button"><i class="fa-solid fa-plus"></i></a> &nbsp;
+            <a href="#" id="deleteInputs" class="btn btn-danger" type="button"><i class="fa-solid fa-trash-can"></i></a>
+        </div>
+    </div>
+    <form id="calculer" method="post" action="" >
+        <div id="divReadonly" class="text-center">
+            <label class="" for="readonly">Prévisualisation d'une donnée saisie</label>
+            <input type="text" class="w-100 text-center rounded" id="readonly" value="" readonly>
+        </div>
+        <input id="counter" type="hidden" name="" data-counter="0">
+        <table class="table-striped text-center">
+            <caption class="text-secondary text-center small">Tableau 1 : Données pluviométriques mensuelle en [mm]</caption>
+            <thead>
+                <tr>
+                    <th>Jan</th>
+                    <th>Feb</th>
+                    <th>Mars</th>
+                    <th>April</th>
+                    <th>May</th>
+                    <th>June</th>
+                    <th>July</th>
+                    <th>Aug</th>
+                    <th>Sep</th>
+                    <th>Oct</th>
+                    <th>Nov</th>
+                    <th>Dec</th>
+                </tr>
+            </thead>
+            <tbody id="dataPluvio"></tbody>
+        </table>
+        <div>  
+            <input type="submit" value="Calculer" class="btn btn-primary form-control"/>
+        </div>
+    </form>
+    <hr>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{{asset('assets/hydrology/hydrology.js')}}"></script>
+{% endblock %}
