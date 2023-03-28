@@ -1,7 +1,5 @@
 window.onload = () => {
     let counter = 1;
-
-    let main = document.getElementById('main');
     let calculer = document.getElementById('calculer');
     let dataPluvio = document.getElementById('dataPluvio');
     let addInputs = document.getElementById('addInputs');
@@ -30,13 +28,29 @@ window.onload = () => {
 
 function calculHydrologic(e, counter) {
     e.preventDefault();
+    let main = document.getElementById('main');
     let result = document.getElementById('result');
+    let error = document.getElementById('error');
     result != null ? result.remove() : null ;
+    error != null ? error.remove() : null ;
+    //console.log(operationOnLine(1, '+', 12));
+    let moyenneACalculer = new Array();
+    for (let i = 1; i <= --counter; i++) {
+        moyenneACalculer.push(operationOnLine(i, '+', 12));
+    }
+    moyenneACalculer.reduce((a, b) => {
+        return (a + b);
+    });
+    console.log(moyenneACalculer/12, counter);
 
-    const pmcolumn = operationOnColumn('2', '+', counter);
-    console.log(pmcolumn)
+    /*let pluvioMoyenneMensuelle = moyenneOnLine('12');
+    if (typeof(pluvioMoyenneMensuelle) === 'number') {
+        $(main).append(resultOfCalcul(pluvioMoyenneMensuelle, '13', '14', '23'))
+    } else { 
+        $(main).append(errorOfCalcul());
+    }*/
 
-    // $(main).append(resultOfCalcul('12', '13', '14', '23'))
+    
     return false;
 }
 
@@ -49,13 +63,13 @@ function addInputsInDOM(grandParentElement, counter, specificCSSClass) {
     const tr = document.createElement('tr')
     tr.setAttribute('id', 'lasttr');
 
-    let autofocus = (counter === 1) ? 'autofocus' : '';
-
     // On boucle pour avoir les 12 colonnes souhaitées
     for (let column = 1; column <= 12; column++) {
-        
+        const autofocus = (column === 1 && counter === 1 ) ? 'id="lastclick" autofocus="autofocus"' : '';
         // On ajoute à la fin du tr chaque td et un input
-        tr.innerHTML += `<td><input type="text" ${autofocus} class="line${counter} column${column} ${specificCSSClass}"></td>`;
+        tr.innerHTML += `<td>
+            <input type="text" ${autofocus} class="line${counter} column${column} ${specificCSSClass}">
+        </td>`;
     }
     // On affiche le tout dans le tbody
     grandParentElement.appendChild(tr);
@@ -78,17 +92,6 @@ function realTimePrevisualisation(previsualisation) {
     const inputs = document.querySelectorAll('input.calcul');
     // On boucle sur les inputs afin de gérer des événements(click, input, ...) sur chaque input
     inputs.forEach(function(input) {
-        // gestion de click sur chaque input de class calcul
-        $(input).on('click', function(){
-            const lastclick = document.querySelector('#lastclick');
-            if (lastclick != undefined) {
-                lastclick.removeAttribute('id');
-                lastclick.setAttribute('class', this.getAttribute('class'))
-            }
-            // On affecte la valeur de l'input readonly à celle de l'input calcul pour prévisualiser
-            previsualisation.value = this.value;
-            this.setAttribute('id', 'lastclick');
-        })
         // gestion de l'événement input qui va modifier en temps réél la prévisualisation
         $(input).on('input', function(){
             if (/[a-zA-Z*--$+=/\\&@é" ²'(è_çàù;:!?)]+/.test(this.value)) {
@@ -96,8 +99,25 @@ function realTimePrevisualisation(previsualisation) {
             }
             // Affection de la valeur de l'input calcul sur le readonly pour le temps réél
             previsualisation.value = this.value;
-            
+
+        }); 
+        $(input).on('click', function(){
+            previsualisation.value = this.value;
         });
+        /*
+        // gestion de click sur chaque input de class calcul
+        // $(input).on('click', function(){
+            
+        //     const lastclick = document.querySelector('#lastclick');
+        //     if (lastclick != undefined) {
+        //         lastclick.removeAttribute('id');
+        //         lastclick.setAttribute('class', this.getAttribute('class'))
+        //         console.log(lastclick);
+        //     }
+        //     // On affecte la valeur de l'input readonly à celle de l'input calcul pour prévisualiser
+        //     previsualisation.value = this.value;
+        //     this.setAttribute('id', 'lastclick');
+        // })
         $(previsualisation).on('click', function(){
             const lastclick = document.querySelector('#lastclick');
             lastclick.setAttribute('class', lastclick.getAttribute('class') + ' lastclick')
@@ -115,20 +135,22 @@ function realTimePrevisualisation(previsualisation) {
             }
             this.setAttribute('id', 'lastclick');
         })
+        */
     })
 }
 
 
 function operationOnColumn(indexColumn, operator, counter) {
+    //let inputs = document.querySelectorAll('.column'+indexColumn);
     let inputs = document.querySelectorAll('.column'+indexColumn);
-    if (inputs != undefined) {
+    if (inputs) {
         let donneeACalculer = new Array();
         inputs.forEach(function (input) {
             element = input.value;
             if (element === "" || isNaN(parseFloat(element))) {
                 return "Vérifier votre données pluviométriques";
             } else { // En cas de validation, on push les données sur le tableau
-                donneeACalculer.push(parseFloat(input.value));
+                donneeACalculer.push(parseFloat(element));
             }
         });
         if (donneeACalculer.length === --counter) { // On calcule l'opération souhaitées si la ligne est complète
@@ -161,8 +183,22 @@ function operationOnLine(indexLine, operator, numberMounth) {
     }
 }
 
+function moyenneOnLine(numberMounth) {
+    let moyenneACalculer = new Array();
+    for (let i = 1; i <= numberMounth; i++) {
+        moyenneACalculer.push(operationOnLine(i, '+', 12));
+    }
+    return moyenneACalculer.reduce((a, b) => {
+        return (a + b) / numberMounth;
+    });
+}
+
+
 function resultOfCalcul(pluvioMoyenneMensuelle, canvasPluvioMoyenneMensuelle, pluvioMoyenneInterannuelle, canvasHauteurPluie) {
     return `<div class="container" id="result">
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary">Exporter en PDF</button>
+    </div>
     <section id="pluvioMoyenneMensuelle">
         <h3 class="h5">1. Calcul de la pluviométrie moyenne mensuelle</h3>
         <p>
@@ -245,11 +281,13 @@ function resultOfCalcul(pluvioMoyenneMensuelle, canvasPluvioMoyenneMensuelle, pl
 }
 
 function errorOfCalcul() {
-    return `<div class="d-none" id="error">
-        <h3>Oppssss, ERREUR DE DONNEE</h3>
+    return `<div id="error" class="alert alert-danger">
+        <h3 class="text-center">Oppssss, ERREUR DE DONNEE</h3>
         <hr>
         <p>
-            Vérifier votre donnée pluviométrique en suivant les instructions suivantes : 
+            <div class="text-center">
+                Vérifier votre donnée pluviométrique en suivant les instructions suivantes : 
+            </div>
             <div class="d-flex justify-content-center">
                 <ul class="text-left">
                     <li>Un champ vide;</li>

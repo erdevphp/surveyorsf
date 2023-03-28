@@ -1,4 +1,20 @@
 $(function(){
+    // RegexpEmail
+    // (([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))
+
+    
+
+    /*
+    * valider l'email
+    * @param $email
+    
+    function isValidEmail($email)
+    {
+        return preg_match('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i', $email);
+    }
+    */
+
+
     // On crée un compteur pour la gestion des classes html
     let nb = 1;
 
