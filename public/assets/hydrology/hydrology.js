@@ -28,20 +28,21 @@ window.onload = () => {
 
 function calculHydrologic(e, counter) {
     e.preventDefault();
+    
     let main = document.getElementById('main');
     let result = document.getElementById('result');
     let error = document.getElementById('error');
     result != null ? result.remove() : null ;
     error != null ? error.remove() : null ;
-
-    let moyenneACalculer = 0;
+    document.getElementById('readonly').value = '';
+    let moyenneACalculer = new Object();
     counter--;
     if (counter > 1) {
         for (let i = 1; i <= counter; i++) {
-            moyenneACalculer += operationOnLine(i, '+', 12);
+            moyenneACalculer['pluivoAnnuelle'+i] = operationOnLine(i, '+', 12);
         }
     } else {
-        moyenneACalculer = operationOnLine(1, '+', 12);
+        moyenneACalculer['pluivoAnnuelle1'] = operationOnLine(1, '+', 12);
     }
     console.log(moyenneACalculer);
 
