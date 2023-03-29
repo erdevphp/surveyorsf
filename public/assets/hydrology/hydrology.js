@@ -28,32 +28,45 @@ window.onload = () => {
 
 function calculHydrologic(e, counter) {
     e.preventDefault();
-    
+    counter--; // On décrémente le compteur pour avoir le nombre de ligne
+
     let main = document.getElementById('main');
     let result = document.getElementById('result');
     let error = document.getElementById('error');
     result != null ? result.remove() : null ;
     error != null ? error.remove() : null ;
     document.getElementById('readonly').value = '';
-    let moyenneACalculer = new Object();
-    counter--;
-    if (counter > 1) {
-        for (let i = 1; i <= counter; i++) {
-            moyenneACalculer['pluivoAnnuelle'+i] = operationOnLine(i, '+', 12);
-        }
-    } else {
-        moyenneACalculer['pluivoAnnuelle1'] = operationOnLine(1, '+', 12);
-    }
-    console.log(moyenneACalculer);
 
-    /*let pluvioMoyenneMensuelle = moyenneOnLine('12');
-    if (typeof(pluvioMoyenneMensuelle) === 'number') {
+    let isCorrectDataOutput = false;
+    let pluvioMoyenneMensuelle = new Object();
+    
+    for (let i = 1; i <= 12; i++) {
+        // On calcule la moyenne pluviométrique mensuelle de n années
+        pluvioMoyenneMensuelle['pluvioMoyenneMensuelle'+i] = operationOnColumn(i, '+', counter) / counter;
+    }
+    for (let i in pluvioMoyenneMensuelle) {
+        if ( isNaN(pluvioMoyenneMensuelle[i]) ) {
+            isCorrectDataOutput = false;
+            break;
+        } else isCorrectDataOutput = true;
+    }
+    console.log(pluvioMoyenneMensuelle);
+    if (isCorrectDataOutput) {
         $(main).append(resultOfCalcul(pluvioMoyenneMensuelle, '13', '14', '23'))
     } else { 
         $(main).append(errorOfCalcul());
-    }*/
-
-    
+    }
+    /* Calcul des lignes entrées
+    // counter--;
+    // if (counter > 1) {
+    //     for (let i = 1; i <= counter; i++) {
+    //         moyenneACalculer['pluivoAnnuelle'+i] = operationOnLine(i, '+', 12);
+    //     }
+    // } else {
+    //     moyenneACalculer['pluivoAnnuelle1'] = operationOnLine(1, '+', 12);
+    // }
+    // console.log(moyenneACalculer);
+    */
     return false;
 }
 
@@ -156,7 +169,7 @@ function operationOnColumn(indexColumn, operator, counter) {
                 donneeACalculer.push(parseFloat(element));
             }
         });
-        if (donneeACalculer.length === --counter) { // On calcule l'opération souhaitées si la ligne est complète
+        if (donneeACalculer.length === counter) { // On calcule l'opération souhaitées si la ligne est complète
             return donneeACalculer.reduce((a, b) => {
                 return eval(a + operator + b);
             });
