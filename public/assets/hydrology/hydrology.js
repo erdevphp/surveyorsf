@@ -39,6 +39,7 @@ function calculHydrologic(e, counter) {
 
     let isCorrectDataOutput = false;
     let pluvioMoyenneMensuelle = new Object();
+    let pluvioMoyMensOutput;
     
     for (let i = 1; i <= 12; i++) {
         // On calcule la moyenne pluviométrique mensuelle de n années
@@ -48,11 +49,15 @@ function calculHydrologic(e, counter) {
         if ( isNaN(pluvioMoyenneMensuelle[i]) ) {
             isCorrectDataOutput = false;
             break;
-        } else isCorrectDataOutput = true;
+        } else {
+            pluvioMoyMensOutput += `<td>
+                <input class="col-12" type="text" value="${pluvioMoyenneMensuelle[i]}">
+            </td>` 
+            isCorrectDataOutput = true;
+        }
     }
-    console.log(pluvioMoyenneMensuelle);
     if (isCorrectDataOutput) {
-        $(main).append(resultOfCalcul(pluvioMoyenneMensuelle, '13', '14', '23'))
+        $(main).append(resultOfCalcul(pluvioMoyMensOutput, '13', '14', '23'))
     } else { 
         $(main).append(errorOfCalcul());
     }
@@ -253,7 +258,9 @@ function resultOfCalcul(pluvioMoyenneMensuelle, canvasPluvioMoyenneMensuelle, pl
                         <th>Dec</th>
                     </tr>
                 </thead>
-                <tbody id="pluviomoyennemensuelle">${pluvioMoyenneMensuelle}</tbody>
+                <tbody id="pluviomoyennemensuelle">
+                    <tr>${pluvioMoyenneMensuelle}</tr>
+                </tbody>
             </table>
             <div class="my-2">La pluviométrie moyenne mensuelle est illustré par la figure ci-dessous : </div>
             <div class="text-center" id="canvas">
