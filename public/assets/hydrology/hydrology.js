@@ -33,15 +33,17 @@ function calculHydrologic(e, counter) {
     let error = document.getElementById('error');
     result != null ? result.remove() : null ;
     error != null ? error.remove() : null ;
-    //console.log(operationOnLine(1, '+', 12));
-    let moyenneACalculer = new Array();
-    for (let i = 1; i <= --counter; i++) {
-        moyenneACalculer.push(operationOnLine(i, '+', 12));
+
+    let moyenneACalculer = 0;
+    counter--;
+    if (counter > 1) {
+        for (let i = 1; i <= counter; i++) {
+            moyenneACalculer += operationOnLine(i, '+', 12);
+        }
+    } else {
+        moyenneACalculer = operationOnLine(1, '+', 12);
     }
-    moyenneACalculer.reduce((a, b) => {
-        return (a + b);
-    });
-    console.log(moyenneACalculer/12, counter);
+    console.log(moyenneACalculer);
 
     /*let pluvioMoyenneMensuelle = moyenneOnLine('12');
     if (typeof(pluvioMoyenneMensuelle) === 'number') {
@@ -183,15 +185,15 @@ function operationOnLine(indexLine, operator, numberMounth) {
     }
 }
 
-function moyenneOnLine(numberMounth) {
-    let moyenneACalculer = new Array();
-    for (let i = 1; i <= numberMounth; i++) {
-        moyenneACalculer.push(operationOnLine(i, '+', 12));
-    }
-    return moyenneACalculer.reduce((a, b) => {
-        return (a + b) / numberMounth;
-    });
-}
+// function moyenneOnLine(numberMounth) {
+//     let moyenneACalculer = new Array();
+//     for (let i = 1; i <= numberMounth; i++) {
+//         moyenneACalculer.push(operationOnLine(i, '+', 12));
+//     }
+//     return moyenneACalculer.reduce((a, b) => {
+//         return (a + b) / numberMounth;
+//     });
+// }
 
 
 function resultOfCalcul(pluvioMoyenneMensuelle, canvasPluvioMoyenneMensuelle, pluvioMoyenneInterannuelle, canvasHauteurPluie) {
