@@ -126,12 +126,23 @@
         <section id="repartitionMoyenneHauteurPluie">
             <h3 class="h5">3. Calcul de la répartition moyenne mensuelle des hauteurs des pluies Pm%</h3>
             <p>
-                La répartition moyenne mensuelle des hauteurs des pluies est donnée par le quotient de la pluviométrie moyenne mensuelle
-                sur la pluviométrie moyenne interannuelle multiplié par cent. 
-                <div class="canvasHauteurPluie">
-                    On appliquant la formule Pm% = (<img src="assets/img/symbole/PMBar.png" alt="𝑃𝑚" height="20" width="20"> /  <img src="assets/img/symbole/PBar.png" alt="𝑃" height="20">) * 100, 
-                    on obtient la graphique suivante :  
+                <div>
+                    La répartition moyenne mensuelle des hauteurs des pluies est donnée par le quotient de la pluviométrie moyenne mensuelle
+                    sur la pluviométrie moyenne interannuelle multiplié par cent. 
                 </div>
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+                    <div class="">
+                        On appliquant la formule Pm% = (<img src="assets/img/symbole/PMBar.png" alt="𝑃𝑚" height="20" width="20"> /  <img src="assets/img/symbole/PBar.png" alt="𝑃" height="20">) * 100, 
+                        on obtient le résultat suivant : 
+                    </div>
+                    <select class="btn btn-success" id="selectHauteurPluieType">
+                        <option class="" value="bar" selected>Tableau</option>
+                        <option class="" value="bar">Histogramme</option>
+                        <option class="" value="line">Ligne</option>
+                        <option class="" value="doughnut">Cercle</option>
+                    </select>
+                </div>
+                <div id="canvasHauteurPluie"></div>
             </p>
         </section>
     </div>

@@ -86,9 +86,21 @@ function calculHydrologic(e, counter) {
 
         // Calcul et affichage de la répartition moyenne des hauteurs des pluies
         let repartitionHauteurPluie = new Array();
+        let repartitionHauteurPluieOutput = '';
         for (let i = 0; i < pluvioMoyenneMensuelleValue.length; i++) {
-            repartitionHauteurPluie.push((pluvioMoyenneMensuelleValue[i] *100 ) / pluvioMInterannuelleOutput);
+            repHautPluie = (pluvioMoyenneMensuelleValue[i] * 100 ) / pluvioMInterannuelleOutput;
+            repartitionHauteurPluieOutput += `<td><input type="text" class="col-12" value="${repHautPluie.toFixed(2)}" readonly></td>`;
+            repartitionHauteurPluie.push(repHautPluie.toFixed(2));
         }
+        $(document.getElementById('canvasHauteurPluie')).append(`<table class="table-striped text-center">
+            <caption class="text-secondary text-center small">Répartition moyenne de la hauteur des pluies en [mm]</caption>
+            <thead>
+                <tr>
+                <th>Jan</th><th>Feb</th><th>Mars</th><th>April</th><th>May</th><th>June</th><th>July</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+                </tr>
+            </thead>
+            <tbody><tr>${repartitionHauteurPluieOutput}</tr></tbody>
+        </table>`);
 
         document.getElementById('selectCanvasType').addEventListener('change', function() {
             document.querySelector('canvas#canvasToRemove').remove();
