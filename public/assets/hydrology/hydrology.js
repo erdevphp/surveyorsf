@@ -60,16 +60,20 @@ function calculHydrologic(e, counter) {
     }
 
     if (isCorrectDataOutput) {
+        const pluioMMResult = document.getElementById('pluvioMoyMensOutput');
+        const canvasToRemove = document.querySelector('canvas#canvasToRemove');
         error != null ? error.remove() : null ;
         result.classList.replace('d-none', 'd-block')
+        pluioMMResult != null ? pluioMMResult.remove() : null ;
+        canvasToRemove != null ? canvasToRemove.remove() : null ;
 
-        $(document.querySelector('#pluviomoyennemensuelle')).append(`<tr>${pluvioMoyMensOutput}</tr>`);
+        $(document.querySelector('#pluviomoyennemensuelle')).append(`<tr id="pluvioMoyMensOutput">${pluvioMoyMensOutput}</tr>`);
 
         let canvasPPM =  document.querySelector('#canvasPMM');
         $(canvasPPM).append(getChartOutput('bar', pluvioMoyenneMensuelleValue));
 
         document.getElementById('selectCanvasType').addEventListener('change', function() {
-            canvasPPM.innerHTML = '';
+            document.querySelector('canvas#canvasToRemove').remove();
             $(canvasPPM).append(getChartOutput(this.value, pluvioMoyenneMensuelleValue));
         });
         
@@ -94,6 +98,7 @@ function getChartOutput(typeOfChart, dataMappingChart) {
     // Création d'un canvas Pluviométrie moyenne mensuelle
     const barCanvas = document.createElement('canvas');
     barCanvas.setAttribute('class', 'canvas');
+    barCanvas.setAttribute('id', 'canvasToRemove');
     barCanvas.setAttribute('aria-label', 'chart');
     barCanvas.setAttribute('role', 'img');
 
@@ -351,10 +356,12 @@ function resultOfCalcul(pluvioMoyenneMensuelle, pluvioMoyenneMensuelleValue, plu
 }
 
 function errorOfCalcul() {
+    let error = document.getElementById('error');
     let result = document.getElementById('result');
+    error != null ? error.remove() : null ;
     result != null ? result.classList.add('d-none') : null ;
     return `<div id="error" class="alert alert-danger">
-        <h3 class="text-center">Oppssss, ERREUR DE DONNEE</h3>
+        <h3 class="text-center"><i class="fa fa-warning"></i> Oppssss, ERREUR DE DONNEE</h3>
         <hr>
         <p>
             <div class="text-center">
