@@ -1,0 +1,12 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none font-weight-bold">
+        <a href="{{ path('hydrology')}}" class="text-decoration-none"><i class="fa-solid fa-house-signal"></i> &nbsp; Erdiwo</a>
+    </div>
+    <ul class="nav col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{ path('hydrology')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'hydrology' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-cloud-showers-water"></i> Hydrologie</a></li>
+        <li><a href="{{ path('topometry')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'topometry' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-wand-magic-sparkles"></i> Topométrie</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark"><i class="fa-solid fa-house-flood-water"></i> Hydraulique</a></li>
+        <li><a href="{{ path('sig')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'sig' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-globe"></i> SIG</a></li>
+        <li><a href="{{ path('implantation')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'implantation' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-screwdriver-wrench"></i> Implantation</a></li>
+    </ul>
+</header>

@@ -64,19 +64,21 @@ function calculHydrologic(e, counter) {
         const canvasToRemove = document.querySelector('canvas#canvasToRemove');
         const pluvioMoyenneInterannuelle = document.getElementById('pmInterannuelle');
         const pluvioMInterannuelleRemove = document.getElementById('pluvioMInterannuelleRemove');
+        const repartitionHauteurRemove = document.getElementById('repartitionHauteurRemove');
 
         error != null ? error.remove() : null ;
         result.classList.replace('d-none', 'd-block')
         pluioMMResult != null ? pluioMMResult.remove() : null ;
         canvasToRemove != null ? canvasToRemove.remove() : null ;
         pluvioMInterannuelleRemove != null ? pluvioMInterannuelleRemove.remove() : null ;
+        repartitionHauteurRemove != null ? repartitionHauteurRemove.remove() : null ;
 
         // Affichage tableau pluviométrie moyenne mensuelle
         $(document.querySelector('#pluviomoyennemensuelle')).append(`<tr id="pluvioMoyMensOutput">${pluvioMoyMensOutput}</tr>`);
 
         // Affichage dans un canvas
         let canvasPPM =  document.querySelector('#canvasPMM');
-        $(canvasPPM).append(getChartOutput('bar', pluvioMoyenneMensuelleValue));
+        $(canvasPPM).append(getChartOutput('bar', pluvioMoyenneMensuelleValue, 'canvasToRemove', 'Pluviométrie moyenne mensuelle en [mm]'));
 
         // Calcul et affichage de la pluviométrique moyenne interannuelle
         const pluvioMInterannuelleOutput = pluvioMoyenneMensuelleValue.reduce((a, b) => {
@@ -92,19 +94,29 @@ function calculHydrologic(e, counter) {
             repartitionHauteurPluieOutput += `<td><input type="text" class="col-12" value="${repHautPluie.toFixed(2)}" readonly></td>`;
             repartitionHauteurPluie.push(repHautPluie.toFixed(2));
         }
-        $(document.getElementById('canvasHauteurPluie')).append(`<table class="table-striped text-center">
-            <caption class="text-secondary text-center small">Répartition moyenne de la hauteur des pluies en [mm]</caption>
+        const tableauRepartitionHauteurPluie = `<table class="table-striped text-center" id="repartitionHauteurRemove">
+            <caption class="text-secondary text-center small">Répartition moyenne de la hauteur des pluies en [%]</caption>
             <thead>
                 <tr>
                 <th>Jan</th><th>Feb</th><th>Mars</th><th>April</th><th>May</th><th>June</th><th>July</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
                 </tr>
             </thead>
             <tbody><tr>${repartitionHauteurPluieOutput}</tr></tbody>
-        </table>`);
+        </table>`
+        $(document.getElementById('canvasHauteurPluie')).append(tableauRepartitionHauteurPluie);
+
+        document.getElementById('selectHauteurPluieType').addEventListener('change', function() {
+            document.getElementById('repartitionHauteurRemove').remove();
+            if (this.value === 'tableau') {
+                $(document.getElementById('canvasHauteurPluie')).append(tableauRepartitionHauteurPluie);
+            } else {
+                $(document.getElementById('canvasHauteurPluie')).append(getChartOutput(this.value, repartitionHauteurPluie, 'repartitionHauteurRemove', 'Répartition moyenne de la hauteur des pluies en [%]'));
+            }
+        });
 
         document.getElementById('selectCanvasType').addEventListener('change', function() {
             document.querySelector('canvas#canvasToRemove').remove();
-            $(canvasPPM).append(getChartOutput(this.value, pluvioMoyenneMensuelleValue));
+            $(canvasPPM).append(getChartOutput(this.value, pluvioMoyenneMensuelleValue, 'canvasToRemove', 'Pluviométrie moyenne mensuelle en [mm]'));
         });
     } else { 
         $(main).append(errorOfCalcul());
@@ -112,18 +124,18 @@ function calculHydrologic(e, counter) {
     return false;
 }
 
-function getChartOutput(typeOfChart, dataMappingChart) {
+function getChartOutput(typeOfChart, dataMappingChart, idCanvasToRemove, labelChart) {
     // Création d'un canvas Pluviométrie moyenne mensuelle
     const barCanvas = document.createElement('canvas');
     barCanvas.setAttribute('class', 'canvas');
-    barCanvas.setAttribute('id', 'canvasToRemove');
+    barCanvas.setAttribute('id', idCanvasToRemove);
     barCanvas.setAttribute('aria-label', 'chart');
     barCanvas.setAttribute('role', 'img');
 
     const data = {
         labels: ['Jan', 'Feb', 'March', 'April', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [{
-            label: 'Pluviométrie moyenne mensuelle en [mm]',
+            label: labelChart,
             data: dataMappingChart,
             borderWidth: 1
         }]

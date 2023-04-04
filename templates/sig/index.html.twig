@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SIGController!{% endblock %}
+{% block title %}SIG{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{asset('assets/sig/sig.css')}}">
+{% endblock %}
+
 
 {% block body %}
-
+<div class="container d-flex justify-content-center sig-canvas-wrapper">
+    <canvas id="sig-canvas"></canvas>
+</div>
 {% endblock %}
 
 {% block javascript %}
-<script src="{{asset('assets/hydrology.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/sig/sig.js')}}" type="text/javascript"></script>
 {% endblock %}

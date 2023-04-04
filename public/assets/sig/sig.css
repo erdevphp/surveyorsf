@@ -1,0 +1,13 @@
+.sig-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+}
+
+#sig-canvas {
+    border: 1px solid rgb(90, 57, 121);
+    width: 90%;
+    height: 450px;
+    background-image: url('../img/background/atelierLuban.jpg');
+    background-size: cover;
+}
