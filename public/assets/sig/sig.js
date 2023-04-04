@@ -48,6 +48,8 @@ window.onload = () => {
             player1.velocity.x = 1
         } else if (event.key === 'q' || event.key === 'Q') {
             player1.velocity.x = -1
+        }  else if (event.key === 'z' || event.key === 'Z') {
+            player1.velocity.y = -1
         }
     });
 
@@ -55,6 +57,8 @@ window.onload = () => {
         if (event.key === 'd' || event.key === 'D') {
             player1.velocity.x = 0
         } else if (event.key === 'q' || event.key === 'Q') {
+            player1.velocity.x = 0
+        } else if (event.key === 'z' || event.key === 'Z') {
             player1.velocity.x = 0
         }
     });
