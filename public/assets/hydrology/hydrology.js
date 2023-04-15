@@ -114,6 +114,12 @@ function calculHydrologic(e, counter) {
             }
         });
 
+        // Calcul ecart-type
+        for (let i = 1; i <= counter; i++) {
+            const line = operationOnLine(i, '+', 12);
+            console.log( Math.pow((line - pluvioMInterannuelleOutput), 2) / (counter - 1));
+        }
+
         document.getElementById('selectCanvasType').addEventListener('change', function() {
             document.querySelector('canvas#canvasToRemove').remove();
             $(canvasPPM).append(getChartOutput(this.value, pluvioMoyenneMensuelleValue, 'canvasToRemove', 'Pluviométrie moyenne mensuelle en [mm]'));
@@ -178,7 +184,7 @@ function addInputsInDOM(grandParentElement, counter, specificCSSClass) {
         const autofocus = (column === 1 && counter === 1 ) ? 'id="lastclick" autofocus="autofocus"' : '';
         // On ajoute à la fin du tr chaque td et un input
         tr.innerHTML += `<td>
-            <input type="text" ${autofocus} class="line${counter} column${column} ${specificCSSClass}">
+            <input type="number" step="0.1" value="0" ${autofocus} class="line${counter} column${column} ${specificCSSClass}">
         </td>`;
     }
     // On affiche le tout dans le tbody

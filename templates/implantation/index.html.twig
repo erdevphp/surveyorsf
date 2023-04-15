@@ -2,10 +2,23 @@
 
 {% block title %}Hello ImplantationController!{% endblock %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{asset('assets/implantation/implantation.css')}}">
+{% endblock %}
+
 {% block body %}
+<div class="container box-implantation">
+    <form action="" class="form form-implantation">
+        <input type="hidden" id="send-data" data-send="">
+        <input type="submit" value="Enregister dans la base" class="btn btn-primary">
+    </form>
+    <div class="d-flex justify-content-center box-canvas-implantation">
+        <canvas id="myCanvas" width="600" height="400"></canvas>
+    </div>
+</div>
 
 {% endblock %}
 
 {% block javascript %}
-    <script type="text/javascript" src="{{asset('assets/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/implantation/implantation.js')}}"></script>
 {% endblock %}

@@ -1,0 +1,14 @@
+.box-implantation {
+    position: relative;
+    width: 100%;
+}
+.form-implantation {
+    position: absolute; right: 50%; top: 0;
+    transform: translateX(50%);
+}
+.box-canvas-implantation {
+    width: 100%;
+}
+#myCanvas {
+    background-color: black;
+}
