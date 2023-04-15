@@ -5,8 +5,15 @@
     <ul class="nav col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="{{ path('hydrology')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'hydrology' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-cloud-showers-water"></i> Hydrologie</a></li>
         <li><a href="{{ path('topometry')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'topometry' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-wand-magic-sparkles"></i> Topométrie</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark"><i class="fa-solid fa-house-flood-water"></i> Hydraulique</a></li>
+        {# <li><a href="#" class="nav-link px-2 link-dark"><i class="fa-solid fa-house-flood-water"></i> Hydraulique</a></li> #}
         <li><a href="{{ path('sig')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'sig' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-globe"></i> SIG</a></li>
         <li><a href="{{ path('implantation')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'implantation' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-screwdriver-wrench"></i> Implantation</a></li>
+        {% if not app.user %}
+            <li><a href="{{ path('login')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'login' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-blog"></i> Se connecter</a></li>
+            <li><a href="{{ path('register')}}" class="nav-link px-2 link-{{ app.request.attributes.get('_route') == 'register' ? 'secondary' : 'dark' }}"><i class="fa-solid fa-hands-asl-interpreting"></i> S'inscrire</a></li>
+        {% else %}
+            <li><a href="{{ path('logout')}}" class="nav-link px-2" style="color: rgba(219, 23, 23, 0.592);"><i class="fa-solid fa-warning"></i> Déconnexion</a></li>
+        {% endif %}
     </ul>
+    
 </header>

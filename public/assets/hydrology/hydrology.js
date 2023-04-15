@@ -117,7 +117,8 @@ function calculHydrologic(e, counter) {
         // Calcul ecart-type
         for (let i = 1; i <= counter; i++) {
             const line = operationOnLine(i, '+', 12);
-            console.log( Math.pow((line - pluvioMInterannuelleOutput), 2) / (counter - 1));
+            const moyenne = Math.pow((line - pluvioMInterannuelleOutput), 2)
+            console.log(line, pluvioMInterannuelleOutput);
         }
 
         document.getElementById('selectCanvasType').addEventListener('change', function() {
