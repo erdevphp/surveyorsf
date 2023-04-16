@@ -183,9 +183,11 @@ function addInputsInDOM(grandParentElement, counter, specificCSSClass) {
     // On boucle pour avoir les 12 colonnes souhaitées
     for (let column = 1; column <= 12; column++) {
         const autofocus = (column === 1 && counter === 1 ) ? 'id="lastclick" autofocus="autofocus"' : '';
+        // On gere une valeur aléatoire pour le developpement.
+        const randomValue =  Math.random() * 1000;
         // On ajoute à la fin du tr chaque td et un input
         tr.innerHTML += `<td>
-            <input type="number" step="0.1" value="0" ${autofocus} class="line${counter} column${column} ${specificCSSClass}">
+            <input type="number" min="0" step="0.01" value="${randomValue.toFixed(2)}" ${autofocus} class="line${counter} column${column} ${specificCSSClass}">
         </td>`;
     }
     // On affiche le tout dans le tbody
