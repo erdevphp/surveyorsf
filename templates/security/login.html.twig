@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{{ asset('assets/login/login.css')}}">
+    {{ encore_entry_link_tags('login') }}
 {% endblock %}
 
 {% block body %}
