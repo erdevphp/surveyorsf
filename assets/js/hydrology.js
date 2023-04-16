@@ -65,6 +65,8 @@ function calculHydrologic(e, counter) {
         const pluvioMoyenneInterannuelle = document.getElementById('pmInterannuelle');
         const pluvioMInterannuelleRemove = document.getElementById('pluvioMInterannuelleRemove');
         const repartitionHauteurRemove = document.getElementById('repartitionHauteurRemove');
+        const resultEcartType = document.getElementById('resultEcartType');
+        const resultEcartTypeRemove = document.getElementById('resultEcartTypeRemove');
 
         error != null ? error.remove() : null ;
         result.classList.replace('d-none', 'd-block')
@@ -72,6 +74,7 @@ function calculHydrologic(e, counter) {
         canvasToRemove != null ? canvasToRemove.remove() : null ;
         pluvioMInterannuelleRemove != null ? pluvioMInterannuelleRemove.remove() : null ;
         repartitionHauteurRemove != null ? repartitionHauteurRemove.remove() : null ;
+        resultEcartTypeRemove != null ? resultEcartTypeRemove.remove() : null;
 
         // Affichage tableau pluviométrie moyenne mensuelle
         $(document.querySelector('#pluviomoyennemensuelle')).append(`<tr id="pluvioMoyMensOutput">${pluvioMoyMensOutput}</tr>`);
@@ -114,12 +117,16 @@ function calculHydrologic(e, counter) {
             }
         });
 
-        // Calcul ecart-type
+        // Calcul ecart-type. Cette formule se base sur le nombre d'année d'observation. Il faut au moins 2 années
+        let ecartType = [];
         for (let i = 1; i <= counter; i++) {
-            const line = operationOnLine(i, '+', 12);
-            const moyenne = Math.pow((line - pluvioMInterannuelleOutput), 2)
-            console.log(line, pluvioMInterannuelleOutput);
+            const pluvioAnnuelle = operationOnLine(i, '+', 12);
+            ecartType.push(Math.sqrt(Math.pow((pluvioAnnuelle - pluvioMInterannuelleOutput), 2) / counter));
         }
+        const ecartTypeOutput = ecartType.reduce((a, b) => {
+            return a + b;
+        });
+        $(resultEcartType).append(`<div id="resultEcartTypeRemove">On obtient alors la valeur suivante :  <strong>𝜎 = ${ecartTypeOutput.toFixed(2)} [mm]</strong></div>`)
 
         document.getElementById('selectCanvasType').addEventListener('change', function() {
             document.querySelector('canvas#canvasToRemove').remove();

@@ -51,8 +51,14 @@
         </form>
     </section>
     <hr>
-    <div class="container d-none" id="result" style="font-family: 'Arial'">
+    <article class="container d-none" id="result" style="font-family: 'Arial'">
         <div class="d-flex justify-content-end">
+            <select class="btn btn-default">
+                <option value="Arial" selected>Type de police</option>
+                <option value="Arial">Arial</option>
+                <option value="Calibri">Calibri</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+            </select>
             <button class="btn btn-primary"> <i class="fa fa-save"></i>  Exporter en PDF</button>
         </div>
         <section id="pluvioMoyenneMensuelle">
@@ -152,7 +158,8 @@
             <h3 class="h5">4. Ecart-Type &#963;</h3>
             <p>
                 <div>
-                    L’écart-type pluviométrique est déterminé par la formule suivante :
+                    <strong>Attention, l'écart-type  pluviométrique nécessite au moins deux années d'observation sinon on aurait une valeur nulle.</strong>
+                    Il est déterminé par la formule suivante :
                 </div>
                 <div class="text-center py-3">
                     <img src="assets/img/formule/EcartType.png" alt="Ecart-Type" height="70">
@@ -169,7 +176,29 @@
                 <div id="resultEcartType" class=""></div>
             </p>
         </section>
-    </div>
+        <section id="pluviometrieFrequenceAnnee">
+            <h3 class="h5">5. Pluivométrie de fréquence de 5ans et 10 ans</h3>
+            <p>
+                <div>
+                    <strong>Attention, l'écart-type  pluviométrique nécessite au moins deux années d'observation sinon on aurait une valeur nulle.</strong>
+                    Il est déterminé par la formule suivante :
+                </div>
+                <div class="text-center py-3">
+                    <img src="assets/img/formule/EcartType.png" alt="Ecart-Type" height="70">
+                </div>
+                <div class="small d-flex justify-content-center">
+                    <ul class="text-left">
+                        <li>𝜎 est l’écart-type en mm ;</li>
+                        <li>𝑃𝑎 est la pluviométrie annuelle en mm ;</li>
+                        <li>𝑃̅ est la pluviométrie moyenne interannuelle en mm;</li>
+                        <li>𝑎 désigne l’année en cause ;</li>
+                        <li>𝑁 le nombre d’année d’observation</li>
+                    </ul>
+                </div>
+                <div id="resultPluvioFrequenceAnnee" class=""></div>
+            </p>
+        </section>
+    </article>
 </div>
 {% endblock %}
 
