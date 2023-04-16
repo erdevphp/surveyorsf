@@ -24,6 +24,17 @@ window.onload = () => {
     realTimePrevisualisation(document.getElementById('readonly'));
 
     calculer.addEventListener('submit', function(e) { calculHydrologic(e, counter) });
+
+    const button = document.getElementById('downloadHydrology');
+
+    button.addEventListener('click', generatePDF);
+}
+
+function generatePDF() {
+    // Choose the element that your content will be rendered to.
+    const element = document.getElementById('result');
+    // Choose the element and save the PDF for your user.
+    html2pdf().from(element).save();
 }
 
 function calculHydrologic(e, counter) {

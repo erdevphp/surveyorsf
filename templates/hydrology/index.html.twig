@@ -4,6 +4,7 @@
 
 {% block javascript %}
     {{ encore_entry_script_tags('hydrology') }}
+    <script src="{{asset('assets/html2pdf.js')}}"></script>
 {% endblock %}
 
 {% block body %}
@@ -59,7 +60,7 @@
                 <option value="Calibri">Calibri</option>
                 <option value="Comic Sans MS">Comic Sans MS</option>
             </select>
-            <button class="btn btn-primary"> <i class="fa fa-save"></i>  Exporter en PDF</button>
+            <button class="btn btn-primary" id="downloadHydrology"> <i class="fa fa-save"></i>  Exporter en PDF</button>
         </div>
         <section id="pluvioMoyenneMensuelle">
             <h3 class="h5">1. Calcul de la pluviométrie moyenne mensuelle <img src="assets/img/symbole/PMBar.png" alt="𝑃𝑚" height="25" width="25"></h3>

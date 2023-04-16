@@ -17,6 +17,8 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('hydrology', './assets/js/hydrology.js')
     .addEntry('bootstrap', ['jquery', 'bootstrap'])
+    .addEntry('chartjs', './node_modules/chart.js/dist/chart.umd.js')
+    .addEntry('html2pdf', './node_modules/html2pdf.js/dist/html2pdf.bundle.min.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -40,6 +42,7 @@ Encore
     .autoProvidejQuery()
     .addStyleEntry('css/fontawesome', './node_modules/@fortawesome/fontawesome-free/css/all.css')
     .addStyleEntry('login', './assets/styles/login.scss')
+    
 ;
 
 module.exports = Encore.getWebpackConfig();

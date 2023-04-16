@@ -3,8 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>Erdiwo - {% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('assets/index.css') }}">
-        <script type="text/javascript" src="{{ asset('assets/chartjs/chart.umd.js') }}"></script>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             {{ encore_entry_link_tags('css/fontawesome') }}
@@ -12,6 +10,7 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('chartjs') }}
         {% endblock %}
 
         {% block stylesheet %}{% endblock %}
