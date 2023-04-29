@@ -16,7 +16,9 @@ Encore
 
     .addEntry('app', './assets/app.js')
     .addEntry('hydrology', './assets/js/hydrology.js')
-    .addEntry('bootstrap', ['jquery', 'bootstrap'])
+    .addEntry('jquery', './node_modules/jquery/dist/jquery.min.js')
+    .addEntry('popper.js', './node_modules/popper.js/dist/popper.min.js')
+    .addEntry('bootstrap', './node_modules/bootstrap/dist/js/bootstrap.min.js')
     .addEntry('chartjs', './node_modules/chart.js/dist/chart.umd.js')
     .addEntry('html2pdf', './node_modules/html2pdf.js/dist/html2pdf.bundle.min.js')
 

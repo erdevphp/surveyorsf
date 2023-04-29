@@ -2,20 +2,15 @@
 
 namespace App\Twig\Runtime;
 
-use App\Service\RouteActiveService;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class ActiveLinkExtensionRuntime implements RuntimeExtensionInterface
 {
-    private $em;
-    public function __construct(private RouteActiveService $routeActiveService)
-    {
-        // Inject dependencies if needed
-        
-    }
+    public function __construct(private RequestStack $requestStack) {}
 
     public function doSomething($value, string $cssActiveClass = 'secondary', string $cssNotActiveClass = 'dark')
     {
-        $this->routeActiveService->linkActive($value, $cssActiveClass, $cssNotActiveClass);
+        return ( $this->requestStack->getCurrentRequest()->get('_route') === $value ) ? $cssActiveClass : $cssNotActiveClass;
     }
 }
